@@ -48,7 +48,6 @@ aside {
     transition:all ease .2s;
     overflow-x:hidden;
 }
-
 .cart--area {
     padding:20px;
 }
@@ -209,9 +208,13 @@ h1 {
     display:flex;
     align-items:center;
 }
-.pizzaInfo--actualPrice {
+.pizzaInfo--actualPrice{
     font-size:28px;
     margin-right:30px;
+}
+.pizzaInfo--price span{
+    font-size:28px;
+    margin-right: 5px;
 }
 .pizzaInfo--qtarea {
     display:inline-flex;
@@ -360,9 +363,7 @@ h1 {
         bottom:0;
         transition: all ease .2s;
     }
-    aside.show {
-        width:auto;
-    }
+  
     .cart--area {
         width:100vw;
     }

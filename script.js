@@ -5,7 +5,7 @@ let response = (id,imagem, preco, descricao, nome) =>{
   //Definindo o evento onclick na tag <a>, sendo passado como argumento os values de cada objeto
   document.querySelector('.pizza-area').innerHTML+= 
             `<div class='pizza-item'>
-                <a href='#' onclick="monstrarWindowPizza('${imagem}','${descricao}', '${nome}','R$ ${preco}')">
+                <a href='#' onclick="monstrarWindowPizza('${imagem}','${descricao}', '${nome}',${preco})">
                     <img class='pizza-item--img' src="${imagem}" />
                     <div class='pizza-item--add'>+</div>
                 </a>
@@ -38,6 +38,9 @@ let i = 1
 let controllerButton = 0
 let controllerDiv
 let controllerCart = 0
+let subTotal = 0
+let desconto = 0
+let total = 0
 //Adicionar ao carrinho de compra
 const adicionarCarrinho = () => {
     controllerButton++
@@ -49,19 +52,31 @@ const adicionarCarrinho = () => {
     const img = document.querySelector('.imagem-window').getAttribute('src')
     const nome = document.querySelector('.pizza_name').innerHTML
     const qnt =  document.querySelector('.pizzaInfo--qt').innerHTML
+    const preco =  document.querySelector('.pizzaInfo--actualPrice').innerHTML
+
+    //Matematica do carrinho
+    subTotal += parseFloat(preco) * parseFloat(qnt)
+    desconto = subTotal * 0.1
+    total = subTotal - desconto
+    document.querySelector('.subtotal_text').innerHTML = `R$ ${subTotal.toFixed(1)}`
+    document.querySelector('.desconto_text').innerHTML = `R$ ${desconto.toFixed(1)}`
+    document.querySelector('.total_text').innerHTML = `R$ ${total.toFixed(1)}`
+
+
     document.querySelector('.cart').innerHTML += 
                 `<div id='${controllerDiv}' class="cart--item">
                     <img src="${img}" />
                     <div class="cart--item-nome">${nome}</div>
                         <div class="cart--item--qtarea">
-                            <button class="cart--item-qtmenos" onclick="subPizzaCart(${controllerButton},'${controllerDiv}')">-</button>
+                            <button class="cart--item-qtmenos" onclick="subPizzaCart(${controllerButton},'${controllerDiv}',${preco})">-</button>
                             <div id='${controllerButton}' class="cart--item--qt">${qnt}</div>
-                            <button class="cart--item-qtmais" onclick="addPizzaCart(${controllerButton})">+</button> 
+                            <button class="cart--item-qtmais" onclick="addPizzaCart(${controllerButton},${preco})">+</button> 
                         </div>
                     </div>
                 </div>`
     i = 1
     document.querySelector('.pizzaInfo--qt').innerHTML = i
+
 }
 
 
@@ -84,15 +99,34 @@ const subPizza = () =>{
 
 //Chart Buttons add e sub
 
-const addPizzaCart = (controllerButton) =>{
+const addPizzaCart = (controllerButton, preco) =>{
     let y = document.getElementById(`${controllerButton}`).innerHTML
     y++
-    document.getElementById(`${controllerButton}`).innerHTML = y
+
+   //Matematica do carrinho
+   subTotal += parseFloat(preco)
+   desconto = subTotal * 0.1
+   total = subTotal - desconto
+   document.querySelector('.subtotal_text').innerHTML = `R$ ${subTotal.toFixed(1)}`
+   document.querySelector('.desconto_text').innerHTML = `R$ ${desconto.toFixed(1)}`
+   document.querySelector('.total_text').innerHTML = `R$ ${total.toFixed(1)}`
+
+   document.getElementById(`${controllerButton}`).innerHTML = y
 }
 
-const subPizzaCart = (controllerButton, controllerDiv) =>{
+const subPizzaCart = (controllerButton, controllerDiv, preco) =>{
     let y = document.getElementById(`${controllerButton}`).innerHTML
     y--
+
+    //Matematica do carrinho
+    subTotal -= parseFloat(preco)
+    desconto = subTotal * 0.1
+    total = subTotal - desconto
+    document.querySelector('.subtotal_text').innerHTML = `R$ ${subTotal.toFixed(1)}`
+    document.querySelector('.desconto_text').innerHTML = `R$ ${desconto.toFixed(1)}`
+    document.querySelector('.total_text').innerHTML = `R$ ${total.toFixed(1)}`
+    
+    
     if (y <= 0) {
         y =0
         controllerCart--
@@ -103,6 +137,8 @@ const subPizzaCart = (controllerButton, controllerDiv) =>{
            document.querySelector('.aside').style.width = '0vw' 
         }
     }
+    
+    
     if(y > 0){
         document.getElementById(`${controllerButton}`).innerHTML = y
     }

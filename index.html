@@ -22,20 +22,19 @@
         <div class="cart--area">
             <div class="menu-closer">❌</div>
             <h1>Suas Pizzas</h1>
-            <div class="cart">
-            </div>
+            <div class="cart"></div>
             <div class="cart--details">
                 <div class="cart--totalitem subtotal">
                     <span>Subtotal</span>
-                    <span>R$ --</span>
+                    <span class="subtotal_text"></span>
                 </div>
                 <div class="cart--totalitem desconto">
                     <span>Desconto (-10%)</span>
-                    <span>R$ --</span>
+                    <span class="desconto_text"></span>
                 </div>
                 <div class="cart--totalitem total big">
                     <span>Total</span>
-                    <span>R$ --</span>
+                    <span class="total_text"></span>
                 </div>
                 <div class="cart--finalizar">Finalizar a compra</div>
             </div>
@@ -62,7 +61,7 @@
                 <div class="pizzaInfo--pricearea">
                     <div class="pizzaInfo--sector">Preço</div>
                     <div class="pizzaInfo--price">
-                        <div class="pizzaInfo--actualPrice"></div>
+                        <span>R$</span> <div class="pizzaInfo--actualPrice"></div>
                         <div class="pizzaInfo--qtarea">
                             <button class="pizzaInfo--qtmenos" onclick="subPizza()">-</button>
                             <div class="pizzaInfo--qt">1</div>
